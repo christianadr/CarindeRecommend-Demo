@@ -1,7 +1,7 @@
 import streamlit as st
 import torch
 import recommender as rec
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 
 @st.cache_resource
 def load_model():
@@ -29,9 +29,16 @@ def draw_bounding_boxes(image, boxes, labels, confidences):
     """ Drawing bounding boxes on detected objects on image """
     
     draw = ImageDraw.Draw(image)
+    font_size = max(1, int(image.width / 100))  # Adjust the divisor as needed
+
     for box, label, confidence in zip(boxes, labels, confidences):
         draw.rectangle(box, width=5, outline='red')
-        draw.text((box[0], box[1] - 20), f"{label}: {confidence:.2f}", fill='red')
+        font = ImageFont.truetype(size=font_size)
+        text = f"{label}: {confidence:.2f}"
+        text_width, text_height = draw.textsize(text, font=font)
+        draw.rectangle((box[0], box[1] - text_height - 5, box[0] + text_width + 5, box[1]), fill='red')
+        draw.text((box[0] + 2, box[1] - text_height - 3), text, fill='white', font=font)
+    
     return image
 
 def predictions(image_path):
