@@ -62,7 +62,7 @@ def predictionPage():
 
         
     else:
-        st.error("Something's wrong!")
+        pass
         
 def main():
 
