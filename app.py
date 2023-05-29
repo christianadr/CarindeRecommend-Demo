@@ -68,8 +68,8 @@ def main():
 
 
     with st.sidebar:
-        selected = option_menu("Main Menu", ["Home", "Try Demo", "About the Researchers"], 
-            icons=['house', 'gear', 'person'], menu_icon="cast", default_index=0)
+        selected = option_menu("Main Menu", ["Home", "Try Demo"], 
+            icons=['house', 'play'], menu_icon="cast", default_index=0)
     
     if selected == "Home":
         homePage()
