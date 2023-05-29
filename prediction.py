@@ -33,11 +33,11 @@ def draw_bounding_boxes(image, boxes, labels, confidences):
 
     for box, label, confidence in zip(boxes, labels, confidences):
         draw.rectangle(box, width=5, outline='red')
-        # font = ImageFont.truetype(size=font_size)
+        font = ImageFont.truetype(size=20)
         text = f"{label}: {confidence:.2f}"
-        text_width, text_height = draw.textsize(text)
+        text_width, text_height = draw.textsize(text, font=font)
         draw.rectangle((box[0], box[1] - text_height - 5, box[0] + text_width + 5, box[1]), fill='red')
-        draw.text((box[0] + 2, box[1] - text_height - 3), text, fill='white')
+        draw.text((box[0] + 2, box[1] - text_height - 3), text, fill='white', font=font)
     
     return image
 
